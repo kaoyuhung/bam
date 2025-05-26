@@ -18,11 +18,22 @@
 #include "host_util.h"
 //#include <ctype>
 #include <cstdio>
-
+#include "cufile.h"
 
 #define cuda_err_chk(ans) { gpuAssert((ans), __FILE__, __LINE__); }
 
+#define cufile_err_chk(ans) { cufileAssert((ans), __FILE__, __LINE__); }
+
+void cufileAssert(
+    CUfileError_t status, const char* const file, int line) {
+   if (status.err != CU_FILE_SUCCESS) {
+	  fprintf(stderr,"Assert: %i %s %d\n", status.err, file, line);
+   }
+   return;
+}
+
 #ifndef __CUDACC__
+
 inline void gpuAssert(int code, const char *file, int line, bool abort=false)
 {
     if (code != 0)
