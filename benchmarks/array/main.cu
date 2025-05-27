@@ -420,7 +420,7 @@ static void UVM_DIRECT_TEST(Settings& settings) {
       free(assignment);
       cuda_err_chk(cudaFree(d_assignment));
    } else {
-      print_results("UVM_READONLY_TEST SEQUENTIAL",
+      print_results("UVM_DIRECT_TEST SEQUENTIAL",
                     measure_performance([&]() {
                        for (int i = 0; i < (int)((data_size + buf_size - 1) / buf_size); i++) {
                           uint64_t itr_data_size = min(buf_size, data_size - i * buf_size);
